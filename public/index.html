@@ -118,12 +118,13 @@
   			var restaurant = new Restaurant();
   			restaurant.save(restaurantDetails, {
   				success: function(restaurant){
-  					console.log("something saved!")
+  					console.log(restaurant)
+  				},
+  				error: function(restaurant){
+  					console.log("there was an error")
   				}
   			})
-
   			return false;
-
   		}
   	})
     var Router = Backbone.Router.extend({
