@@ -21,8 +21,7 @@ module Name
     get '/' do
       # r1= Restaurant.create(:name => "Simple Pleasures", :rating=>[5])
       # @restaurants = Restaurant.all
-
-      erb :index
+      "welcome!"
     end
 
     get '/restaurants' do
