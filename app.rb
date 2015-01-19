@@ -19,6 +19,9 @@ module Name
 
     #routes
     get '/' do
+      # r1= Restaurant.create(:name => "Simple Pleasures", :rating=>[5])
+      @restaurants = Restaurant.all
+
       erb :index
     end
 
@@ -32,3 +35,7 @@ module Name
 
   end
 end
+
+# seed data
+# r1= Restaurant.new(:name => "Simple Pleasures", :rating=>[5])
+# r2 = Restaurant.new(:name => "Cafe Promenade", :rating=>[4])
