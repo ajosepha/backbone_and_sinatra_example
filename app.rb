@@ -26,11 +26,12 @@ module Name
     end
 
     get '/restaurants' do
+      @restaurant = Restaurant.all
       # get all restaurants
     end
 
     get '/restaurants/:id' do
-      @restaurant
+      @restaurant = restaurant.find([:params])
       # get a specific restaurant
     end
 
