@@ -1,9 +1,9 @@
 
 
 <div class="container">
-	<h1>Restaurant Reviews</h1>
-	<br/>
-	<div class="page"></div>
+  <h1>Restaurant Reviews</h1>
+  <br/>
+  <div class="page"></div>
 </div>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
@@ -12,10 +12,10 @@
 
 <script>
 
-	// $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+  // $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
  //      options.url = 'localhost:9393' + options.url;
  //    });
-	$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+  $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
     options.crossDomain ={
         crossDomain: true
     };
@@ -24,29 +24,25 @@
     };
 });
 
-	$.ajaxPrefilter('json', function(options, orig, jqXHR) {
-	if (options.crossDomain && !$.support.cors) return 'jsonp'
-});
-
-	var Restaurants = Backbone.Collection.extend({
-		url: 'http://localhost:9393/restaurants'
-	})
+  var Restaurants = Backbone.Collection.extend({
+    url: 'http://localhost:9393/restaurants'
+  })
 
 
   var RestaurantList = Backbone.View.extend({
-  	el: '.page',
-  	render: function(){
-  		var that = this
-  		var restaurants =  new Restaurants()
-  		restaurants.fetch({
-  			success: function(){
-  				var that = this
-  				console.log("this worked")
-  				that.$el.html("content should show here")
-  			}
-  		})
-  		
-  	}
+    el: '.page',
+    render: function(){
+      var that = this
+      var restaurants =  new Restaurants()
+      restaurants.fetch({
+        success: function(){
+          var that = this
+          console.log("this worked")
+          that.$el.html("content should show here")
+        }
+      })
+      
+    }
   })
 
   var Router = Backbone.Router.extend({
@@ -60,7 +56,7 @@
   var router = new Router();
 
   router.on('route:home', function(){
-  	  restaurantList.render();
+      restaurantList.render();
       console.log("will show all restaurants")
    
     });
