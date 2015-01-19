@@ -81,6 +81,9 @@
 
     var Restaurants = Backbone.Collection.extend({
       url : '/restaurants'
+    });
+    var Restaurant = Backbone.Model.extend({
+      urlRoot : '/restaurants'
     })
 
     var RestaurantList = Backbone.View.extend({
@@ -112,6 +115,12 @@
   			console.log(restaurantDetails.rating);
   			restaurantDetails.rating = new Array(restaurantDetails.rating)
   			console.log(restaurantDetails);
+  			var restaurant = new Restaurant();
+  			restaurant.save(restaurantDetails, {
+  				success: function(restaurant){
+  					console.log("something saved!")
+  				}
+  			})
 
   			return false;
 

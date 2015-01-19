@@ -30,7 +30,7 @@ module Name
       # get all restaurants
     end
 
-    get '/restaurants/:id' do
+    get '/restaurant/:id' do
       restaurant = restaurant.find(params[:id])
       return status 404 if @restaurant.nil
       restaurant.to_json
@@ -38,15 +38,23 @@ module Name
       # get a specific restaurant
     end
 
-    post '/restaurant' do
-      restaurant = Restaurant.new(params[:id])
+    post '/restaurants' do
+      request_body = JSON.parse(request.body.read.to_s)
+      puts request_body.class
+      puts request_body["name"]
+      puts request_body["rating"]
+      restaurant = Restaurant.new(:name => request_body["name"], :rating=>request_body["rating"])
       restaurant.save
-      status 202
+
+      # restaurant = Restaurant.new(:name => JSON.stringify(params[:name]), :rating => params[:rating])
+      # restaurant.save
+      # status 202
+      # "a restaurant was saved"
       # create a new restaurant (will not be implemented here)
       # @restaurant = Restaurant.new()
     end
 
-    put '/restaurant/:id' do
+    put '/restaurants/:id' do
       restaurant = Restaurant.find(params[:id])
       return status 404 if restaurant.nil?
       restaurant.update(params[:id])
@@ -55,7 +63,7 @@ module Name
       # update an existing restaurant
     end
 
-    delete '/restaurant/:id' do
+    delete '/restaurants/:id' do
       restaurant = Restaurant.find(params[:id])
       return status 404 if restaurant.nil?
       restaurant.delete
