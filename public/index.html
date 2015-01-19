@@ -60,6 +60,23 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
   <script>
 
+  $.fn.serializeObject = function() {
+      var o = {};
+      var a = this.serializeArray();
+      $.each(a, function() {
+          if (o[this.name] !== undefined) {
+              if (!o[this.name].push) {
+                  o[this.name] = [o[this.name]];
+              }
+              o[this.name].push(this.value || '');
+          } else {
+              o[this.name] = this.value || '';
+          }
+      });
+      return o;
+    };
+
+
 
 
     var Restaurants = Backbone.Collection.extend({
@@ -84,9 +101,20 @@
   	var EditRestaurant = Backbone.View.extend({
   		el: '.page',
   		render: function(restaurant){
-  			 	var template = _.template($('#edit-restaurant-template').html())
-          this.$el.html(template({restaurant: restaurant}));
-          console.log(restaurant)
+			 	var template = _.template($('#edit-restaurant-template').html())
+        this.$el.html(template({restaurant: restaurant}));
+  		},
+  		events: {
+  			'submit .edit-restaurant-form': 'saveRestaurant',
+  		},
+  		saveRestaurant: function(ev){
+  			var restaurantDetails = $(ev.currentTarget).serializeObject();
+  			console.log(restaurantDetails.rating);
+  			restaurantDetails.rating = new Array(restaurantDetails.rating)
+  			console.log(restaurantDetails);
+
+  			return false;
+
   		}
   	})
     var Router = Backbone.Router.extend({
@@ -101,12 +129,10 @@
 
     router.on('route:home', function(){
       restaurantList.render()
-      console.log("we have loaded the home page")
 
     });
     router.on('route:editRestaurant', function(){ 
     	editRestaurant.render();
-      console.log("we are on the edit page")
 
     })
     Backbone.history.start();
