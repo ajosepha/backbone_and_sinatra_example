@@ -65,18 +65,33 @@
         
       }
     });
+
+  	var EditRestaurant = Backbone.View.extend({
+  		el: '.page',
+  		render: function(){
+  			this.$el.html("show the form here")
+  		}
+  	})
     var Router = Backbone.Router.extend({
       routes: {
-        "":"home"
+        "":"home",
+        "new":"editRestaurant"
       }
     });
-    var restaurantList = new RestaurantList()
+    var restaurantList = new RestaurantList();
+    var editRestaurant = new EditRestaurant();
     var router = new Router();
+
     router.on('route:home', function(){
       restaurantList.render()
       console.log("we have loaded the home page")
 
     });
+    router.on('route:editRestaurant', function(){ 
+    	editRestaurant.render();
+      console.log("we are on the edit page")
+
+    })
     Backbone.history.start();
   </script>
 </body>
