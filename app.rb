@@ -25,6 +25,29 @@ module Name
       erb :index
     end
 
+    get '/restaurants' do
+      # get all restaurants
+    end
+
+    get '/restaurants/:id' do
+      @restaurant
+      # get a specific restaurant
+    end
+
+    post '/restaurant' do
+      # create a new restaurant (will not be implemented here)
+    end
+
+    put '/restaurant/:id' do
+      # update an existing restaurant
+    end
+
+    delete '/restaurant/:id' do
+    # =>  delete an item
+    end
+
+
+
 
     #helpers
     helpers do
