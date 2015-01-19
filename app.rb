@@ -21,12 +21,12 @@ module Name
     get '/' do
       # r1= Restaurant.create(:name => "Simple Pleasures", :rating=>[5])
       # @restaurants = Restaurant.all
-      "welcome!"
+      File.read(File.join('public', 'index.html'))
     end
 
     get '/restaurants' do
       restaurants = Restaurant.all
-      return restaurants.to_json
+      restaurants.to_json
       # get all restaurants
     end
 

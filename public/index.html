@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BackboneTutorials.com Beginner Video</title>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+	   <h1>User Manager</h1>
+     <br/>
+     <div class="page"></div>
+  </div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+  <script>
+
+
+
+    var Restaurants = Backbone.Collection.extend({
+      url : '/restaurants'
+    })
+
+    var RestaurantList = Backbone.View.extend({
+      el: '.page', 
+      render: function(){
+      	var that= this;
+        var restaurants = new Restaurants();
+        restaurants.fetch({
+          success: function(){
+            that.$el.html("test in the dom")
+          }
+        })
+        
+      }
+    });
+    var Router = Backbone.Router.extend({
+      routes: {
+        "":"home"
+      }
+    });
+    var restaurantList = new RestaurantList()
+    var router = new Router();
+    router.on('route:home', function(){
+      restaurantList.render()
+      console.log("we have loaded the home page")
+
+    });
+    Backbone.history.start();
+  </script>
+</body>
+</html>
