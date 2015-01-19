@@ -39,12 +39,22 @@ module Name
     end
 
     post '/restaurants' do
-      request_body = JSON.parse(request.body.read.to_s)
+      content_type :json
+      request_body = JSON.parse(request.body.read)
       puts request_body.class
       puts request_body["name"]
-      puts request_body["rating"]
-      restaurant = Restaurant.new(:name => request_body["name"], :rating=>request_body["rating"])
-      restaurant.save
+      @restaurant = Restaurant.new(:name => request_body["name"], :rating => request_body["rating"])
+      @restaurant.save
+      if @restaurant.save
+        @restaurant.to_json
+      else
+        halt 500
+      end 
+      # puts request_body["name"]
+      # puts request_body["rating"]
+      # restaurant = Restaurant.new(:name => request_body["name"], :rating=>request_body["rating"])
+      # restaurant.save
+      
 
       # restaurant = Restaurant.new(:name => JSON.stringify(params[:name]), :rating => params[:rating])
       # restaurant.save
