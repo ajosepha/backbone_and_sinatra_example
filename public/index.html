@@ -40,6 +40,21 @@
     </table>
   </script>
 
+  <script type="text/template" id="edit-restaurant-template">
+    <form class="edit-restaurant-form">
+      <legend>Create Restaurant User</legend>
+      <label>Name</label>
+      <input type="text" name="name"/>
+      <label>Rating</label>
+      <input type="text" name="rating"/>
+      
+      <br/>
+      <button type = "submit" class="btn">Send</button>
+      
+    </form>
+  </script>
+
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
@@ -68,8 +83,10 @@
 
   	var EditRestaurant = Backbone.View.extend({
   		el: '.page',
-  		render: function(){
-  			this.$el.html("show the form here")
+  		render: function(restaurant){
+  			 	var template = _.template($('#edit-restaurant-template').html())
+          this.$el.html(template({restaurant: restaurant}));
+          console.log(restaurant)
   		}
   	})
     var Router = Backbone.Router.extend({
