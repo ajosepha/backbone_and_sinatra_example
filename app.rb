@@ -20,7 +20,7 @@ module Name
     #routes
     get '/' do
       # r1= Restaurant.create(:name => "Simple Pleasures", :rating=>[5])
-      @restaurants = Restaurant.all
+      # @restaurants = Restaurant.all
 
       erb :index
     end
@@ -32,9 +32,9 @@ module Name
     end
 
     get '/restaurants/:id' do
-      @restaurant = restaurant.find(params[:id])
+      restaurant = restaurant.find(params[:id])
       return status 404 if @restaurant.nil
-      @restaurant.to_json
+      restaurant.to_json
 
       # get a specific restaurant
     end
@@ -63,10 +63,6 @@ module Name
       status 202
     # =>  delete an item
     end
-
-
-
-
     #helpers
     helpers do
       def partial(file_name)
