@@ -6,6 +6,7 @@ gem "pg"
 gem "activerecord"
 gem "sinatra-activerecord"
 gem "rake"
+gem "json"
 
 
 group :development do

@@ -26,24 +26,41 @@ module Name
     end
 
     get '/restaurants' do
-      @restaurant = Restaurant.all
+      restaurants = Restaurant.all
+      return restaurants.to_json
       # get all restaurants
     end
 
     get '/restaurants/:id' do
-      @restaurant = restaurant.find([:params])
+      @restaurant = restaurant.find(params[:id])
+      return status 404 if @restaurant.nil
+      @restaurant.to_json
+
       # get a specific restaurant
     end
 
     post '/restaurant' do
+      restaurant = Restaurant.new(params[:id])
+      restaurant.save
+      status 202
       # create a new restaurant (will not be implemented here)
+      # @restaurant = Restaurant.new()
     end
 
     put '/restaurant/:id' do
+      restaurant = Restaurant.find(params[:id])
+      return status 404 if restaurant.nil?
+      restaurant.update(params[:id])
+      restaurant.save
+      status 202
       # update an existing restaurant
     end
 
     delete '/restaurant/:id' do
+      restaurant = Restaurant.find(params[:id])
+      return status 404 if restaurant.nil?
+      restaurant.delete
+      status 202
     # =>  delete an item
     end
 
