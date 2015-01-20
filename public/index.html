@@ -43,6 +43,7 @@
   <script type="text/template" id="edit-restaurant-template">
     <form class="edit-restaurant-form">
       <legend><%= restaurant? 'New Review ': 'New Restaurant' %> </legend>
+      
       <label><h3>Name</h3></label>
       <% if(restaurant) { %>
       	<%= restaurant.get('name') %>   	
