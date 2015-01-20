@@ -137,13 +137,9 @@
   		},
   		saveRestaurant: function(ev){
   			var restaurantDetails = $(ev.currentTarget).serializeObject();
-  			console.log(restaurantDetails.rating);
-  			// restaurantDetails.rating = new Array(restaurantDetails.rating)
-  			// console.log(restaurantDetails);
   			var restaurant = new Restaurant();
   			restaurant.save(restaurantDetails, {
   				success: function(restaurant){
-  					console.log("sucessfully saved")
   					router.navigate('', {trigger: true})
   				},
   				error: function(restaurant){
@@ -156,7 +152,6 @@
       deleteRestaurant: function(ev){
         this.restaurant.destroy({
           success: function(){
-            console.log("destroyed!")
             router.navigate('', {trigger: true})
           }, 
           error: function(){

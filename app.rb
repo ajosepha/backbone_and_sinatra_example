@@ -32,7 +32,6 @@ module Name
 
     get '/restaurants/:id' do
       content_type :json
-      puts "you are at a specific restaurant"
       @restaurant = Restaurant.find(params[:id].to_i)
       if @restaurant
         @restaurant.to_json
@@ -49,8 +48,6 @@ module Name
     post '/restaurants' do
       content_type :json
       request_body = JSON.parse(request.body.read)
-      puts request_body.class
-      puts request_body["rating"].class
       rating_int = request_body["rating"].to_i
       rating_int.class
       rating_array = [rating_int]
@@ -72,13 +69,10 @@ module Name
       params_json = JSON.parse(request.body.read)
       avg = []
       updated_rating = @restaurant.rating.push(params_json["rating"])
-      puts updated_rating.class
       updated_rating.each do |num|
         avg.push(num.to_i)
       end
-      print avg
       new_avg = avg.inject{ |sum, el| sum + el }.to_f / avg.size
-      puts new_avg
 
 
       @restaurant.update(:rating => avg, :avg_rating => new_avg)
