@@ -21,9 +21,9 @@
     <table class="table striped">
       <thead>
         <tr>
-          <th> Name</th>
+          <th> Name </th>
           <th> Rating </th>
-          <th></th>
+          
         </tr>
       </thead>
       <tbody>
@@ -31,6 +31,7 @@
           <tr>
             <td><%= restaurant.get('name') %></td>
             <td><%= restaurant.get('rating') %></td>
+            <td><a href="#/edit/<%=restaurant.id%>" class="btn">Edit</a></td>
          
           </tr>
         <% }); %>
