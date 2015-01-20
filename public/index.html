@@ -1,4 +1,5 @@
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -20,7 +21,6 @@
       <thead>
         <tr>
           <th> Name </th>
-          <th> Rating </th>
           <th> Avg Rating </th>
           
         </tr>
@@ -29,7 +29,6 @@
         <% _.each(restaurants, function(restaurant){ %>
           <tr>
             <td><%= restaurant.get('name') %></td>
-            <td><%= restaurant.get('rating') %></td>
             <td><%= restaurant.get('avg_rating') %></td>
             <td><a href="#/edit/<%=restaurant.id%>" class="btn">Edit</a></td>
          
@@ -52,11 +51,8 @@
       <% }; %>
       
       <label><h3>Rating</h3></label>
-         <% if(restaurant) { %>
-        <input type="number" name="rating" min="1" max ="10"/>    
-      <% } else {%>
-        <input type="text" name="rating" min="1" max ="10"/>
-      <% }; %>
+      <input type="number" name="rating" min="1" max ="10"/>    
+
       <hr/>
       <% if(restaurant) { %>
         <input type="hidden" name="id" value="<%= restaurant.id %>" />
