@@ -50,10 +50,7 @@ module Name
       request_body = JSON.parse(request.body.read)
       rating_int = request_body["rating"].to_i
       rating_int.class
-      rating_array = [rating_int]
- 
-
-   
+      rating_array = [rating_int]  
       @restaurant = Restaurant.new(:name => request_body["name"], :rating => rating_array, :avg_rating => rating_int)
       @restaurant.save
       if @restaurant.save
