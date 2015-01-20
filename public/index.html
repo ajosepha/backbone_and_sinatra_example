@@ -1,10 +1,8 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>BackboneTutorials.com Beginner Video</title>
+  <title>Backbone Sinatra App</title>
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
 </head>
 <body>
@@ -55,19 +53,16 @@
       
       <label><h3>Rating</h3></label>
          <% if(restaurant) { %>
-        <%= restaurant.get('avg_rating') %> 
-        <p>New Rating</p>
-        <input type="text" name="rating"/>    
+        <input type="number" name="rating" min="1" max ="10"/>    
       <% } else {%>
-        <input type="text" name="rating"/>
+        <input type="text" name="rating" min="1" max ="10"/>
       <% }; %>
-
+      <hr/>
       <% if(restaurant) { %>
         <input type="hidden" name="id" value="<%= restaurant.id %>" />
         <button type ="button" class="btn btn-danger delete">Delete</button>
        <% }; %>
       
-      <br/>
       <button type = "submit" class="btn"><%= restaurant? 'Add Review ': 'New Restaurant' %></button>
 
       
