@@ -54,7 +54,7 @@ module Name
       rating_int = request_body["rating"].to_i
       rating_int.class
       rating_array = [rating_int]
-      puts arr.class
+ 
 
    
       @restaurant = Restaurant.new(:name => request_body["name"], :rating => rating_array, :avg_rating => rating_int)
@@ -92,11 +92,14 @@ module Name
     end
 
     delete '/restaurants/:id' do
-      restaurant = Restaurant.find(params[:id])
-      return status 404 if restaurant.nil?
-      restaurant.delete
-      status 202
-    # =>  delete an item
+      content_type :json
+      @restaurant = Restaurant.find(params[:id].to_i)
+      if @restaurant.destroy
+        {:success => "ok"}.to_json
+      else
+        halt 500
+      end
+  
     end
     #helpers
     helpers do

@@ -64,11 +64,12 @@
 
       <% if(restaurant) { %>
         <input type="hidden" name="id" value="<%= restaurant.id %>" />
-       
+        <button type ="button" class="btn btn-danger delete">Delete</button>
        <% }; %>
       
       <br/>
       <button type = "submit" class="btn"><%= restaurant? 'Add Review ': 'New Restaurant' %></button>
+
       
     </form>
   </script>
@@ -125,9 +126,8 @@
   		render: function(options){
   			if(options.id){
   				var that = this
-  				var restaurant = new Restaurant({id: options.id})
-  				console.log("heyyy")
-  				restaurant.fetch({
+  				that.restaurant = new Restaurant({id: options.id})
+  				that.restaurant.fetch({
   					success: function(restaurant){
   						var template = _.template($('#edit-restaurant-template').html())
         			that.$el.html(template({restaurant: restaurant}));
@@ -141,6 +141,7 @@
   		},
   		events: {
   			'submit .edit-restaurant-form': 'saveRestaurant',
+        'click .delete' : 'deleteRestaurant',
   		},
   		saveRestaurant: function(ev){
   			var restaurantDetails = $(ev.currentTarget).serializeObject();
@@ -159,7 +160,19 @@
   			});
   			// take out return false
   			return false;
-  		}
+  		},
+      deleteRestaurant: function(ev){
+        this.restaurant.destroy({
+          success: function(){
+            console.log("destroyed!")
+            router.navigate('', {trigger: true})
+          }, 
+          error: function(){
+            console.log("did not delete a record")
+          }
+        })
+        return false;
+      }
   	})
     var Router = Backbone.Router.extend({
       routes: {
