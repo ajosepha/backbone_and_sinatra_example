@@ -70,16 +70,12 @@ module Name
         avg.push(num.to_i)
       end
       new_avg = avg.inject{ |sum, el| sum + el }.to_f / avg.size
-
-
       @restaurant.update(:rating => avg, :avg_rating => new_avg)
-
       if @restaurant.save
         @restaurant.to_json
       else
         halt 500
       end
-      # update an existing restaurant
     end
 
     delete '/restaurants/:id' do
