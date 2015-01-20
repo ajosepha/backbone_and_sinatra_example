@@ -70,11 +70,9 @@ module Name
       content_type :json
       @restaurant = Restaurant.find(params[:id].to_i)
       params_json = JSON.parse(request.body.read)
-      puts params_json
-      puts params_json["rating"]
-      puts @restaurant.rating.class
       avg = []
       updated_rating = @restaurant.rating.push(params_json["rating"])
+      puts updated_rating.class
       updated_rating.each do |num|
         avg.push(num.to_i)
       end
@@ -83,7 +81,7 @@ module Name
       puts new_avg
 
 
-      @restaurant.update(:rating => updated_rating, :avg_rating => new_avg)
+      @restaurant.update(:rating => avg, :avg_rating => new_avg)
 
       if @restaurant.save
         @restaurant.to_json
