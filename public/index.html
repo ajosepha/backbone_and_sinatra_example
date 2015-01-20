@@ -104,9 +104,22 @@
 
   	var EditRestaurant = Backbone.View.extend({
   		el: '.page',
-  		render: function(restaurant){
-			 	var template = _.template($('#edit-restaurant-template').html())
-        this.$el.html(template({restaurant: restaurant}));
+  		render: function(options){
+  			if(options.id){
+  				var that = this
+  				var restaurant = new Restaurant({id: options.id})
+  				console.log("heyyy")
+  				restaurant.fetch({
+  					success: function(restaurant){
+  						var template = _.template($('#edit-restaurant-template').html())
+        			that.$el.html(template({restaurant: restaurant}));
+  					}
+  				})
+  			}
+  			else{
+  				var template = _.template($('#edit-restaurant-template').html())
+        	this.$el.html(template({restaurant: null}));
+  			}		
   		},
   		events: {
   			'submit .edit-restaurant-form': 'saveRestaurant',
@@ -133,7 +146,8 @@
     var Router = Backbone.Router.extend({
       routes: {
         "":"home",
-        "new":"editRestaurant"
+        "new":"editRestaurant",
+        'edit/:id' : 'editRestaurant'
       }
     });
     var restaurantList = new RestaurantList();
@@ -144,8 +158,8 @@
       restaurantList.render()
 
     });
-    router.on('route:editRestaurant', function(){ 
-    	editRestaurant.render();
+    router.on('route:editRestaurant', function (id){ 
+    	editRestaurant.render({id: id});
 
     })
     Backbone.history.start();

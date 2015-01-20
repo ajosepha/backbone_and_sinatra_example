@@ -30,10 +30,18 @@ module Name
       # get all restaurants
     end
 
-    get '/restaurant/:id' do
-      restaurant = restaurant.find(params[:id])
-      return status 404 if @restaurant.nil
-      restaurant.to_json
+    get '/restaurants/:id' do
+      content_type :json
+      puts "you are at a specific restaurant"
+      @restaurant = Restaurant.find(params[:id].to_i)
+      if @restaurant
+        @restaurant.to_json
+      else
+        halt 404
+      end
+      # restaurant = restaurant.find(params[:id])
+      # return status 404 if @restaurant.nil
+      # restaurant.to_json
 
       # get a specific restaurant
     end
