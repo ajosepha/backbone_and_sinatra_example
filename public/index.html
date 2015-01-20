@@ -23,6 +23,7 @@
         <tr>
           <th> Name </th>
           <th> Rating </th>
+          <th> Avg Rating </th>
           
         </tr>
       </thead>
@@ -31,6 +32,7 @@
           <tr>
             <td><%= restaurant.get('name') %></td>
             <td><%= restaurant.get('rating') %></td>
+            <td><%= restaurant.get('avg_rating') %></td>
             <td><a href="#/edit/<%=restaurant.id%>" class="btn">Edit</a></td>
          
           </tr>
@@ -43,10 +45,15 @@
 
   <script type="text/template" id="edit-restaurant-template">
     <form class="edit-restaurant-form">
-      <legend>Create Restaurant User</legend>
-      <label>Name</label>
-      <input type="text" name="name"/>
-      <label>Rating</label>
+      <legend><%= restaurant? 'New Review ': 'New Restaurant' %> </legend>
+      <label><h3>Name</h3></label>
+      <% if(restaurant) { %>
+      	<%= restaurant.get('name') %>   	
+      <% } else {%>
+      	<input type="text" name="name"/>
+      <% } %>
+      
+      <label><h3>Rating</h3></label>
       <input type="text" name="rating"/>
       
       <br/>

@@ -51,25 +51,14 @@ module Name
       request_body = JSON.parse(request.body.read)
       puts request_body.class
       puts request_body["name"]
-      @restaurant = Restaurant.new(:name => request_body["name"], :rating => request_body["rating"])
+      puts 
+      @restaurant = Restaurant.new(:name => request_body["name"], :rating => request_body["rating"], :avg_rating => request_body["rating"][0])
       @restaurant.save
       if @restaurant.save
         @restaurant.to_json
       else
         halt 500
       end 
-      # puts request_body["name"]
-      # puts request_body["rating"]
-      # restaurant = Restaurant.new(:name => request_body["name"], :rating=>request_body["rating"])
-      # restaurant.save
-      
-
-      # restaurant = Restaurant.new(:name => JSON.stringify(params[:name]), :rating => params[:rating])
-      # restaurant.save
-      # status 202
-      # "a restaurant was saved"
-      # create a new restaurant (will not be implemented here)
-      # @restaurant = Restaurant.new()
     end
 
     put '/restaurants/:id' do
