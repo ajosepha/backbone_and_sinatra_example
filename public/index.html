@@ -119,11 +119,13 @@
   			restaurant.save(restaurantDetails, {
   				success: function(restaurant){
   					console.log("sucessfully saved")
+  					router.navigate('', {trigger: true})
   				},
   				error: function(restaurant){
   					console.log("there was an error")
   				}
-  			})
+  			});
+  			// take out return false
   			return false;
   		}
   	})
