@@ -19,8 +19,6 @@ module Name
 
     #routes
     get '/' do
-      # r1= Restaurant.create(:name => "Simple Pleasures", :rating=>[5])
-      # @restaurants = Restaurant.all
       File.read(File.join('public', 'index.html'))
     end
 
@@ -28,7 +26,6 @@ module Name
       content_type :json
       @restaurants = Restaurant.all
       @restaurants.to_json
-      # get all restaurants
     end
 
     get '/restaurants/:id' do
@@ -39,11 +36,6 @@ module Name
       else
         halt 404
       end
-      # restaurant = restaurant.find(params[:id])
-      # return status 404 if @restaurant.nil
-      # restaurant.to_json
-
-      # get a specific restaurant
     end
 
     post '/restaurants' do
@@ -99,6 +91,3 @@ module Name
   end
 end
 
-# seed data
-# r1= Restaurant.new(:name => "Simple Pleasures", :rating=>[5])
-# r2 = Restaurant.new(:name => "Cafe Promenade", :rating=>[4])
