@@ -25,8 +25,9 @@ module Name
     end
 
     get '/restaurants' do
-      restaurants = Restaurant.all
-      restaurants.to_json
+      content_type :json
+      @restaurants = Restaurant.all
+      @restaurants.to_json
       # get all restaurants
     end
 
