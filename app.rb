@@ -50,9 +50,14 @@ module Name
       content_type :json
       request_body = JSON.parse(request.body.read)
       puts request_body.class
-      puts request_body["name"]
-      puts 
-      @restaurant = Restaurant.new(:name => request_body["name"], :rating => request_body["rating"], :avg_rating => request_body["rating"][0])
+      puts request_body["rating"].class
+      rating_int = request_body["rating"].to_i
+      rating_int.class
+      rating_array = [rating_int]
+      puts arr.class
+
+   
+      @restaurant = Restaurant.new(:name => request_body["name"], :rating => rating_array, :avg_rating => rating_int)
       @restaurant.save
       if @restaurant.save
         @restaurant.to_json
@@ -62,11 +67,29 @@ module Name
     end
 
     put '/restaurants/:id' do
-      restaurant = Restaurant.find(params[:id])
-      return status 404 if restaurant.nil?
-      restaurant.update(params[:id])
-      restaurant.save
-      status 202
+      content_type :json
+      @restaurant = Restaurant.find(params[:id].to_i)
+      params_json = JSON.parse(request.body.read)
+      puts params_json
+      puts params_json["rating"]
+      puts @restaurant.rating.class
+      avg = []
+      updated_rating = @restaurant.rating.push(params_json["rating"])
+      updated_rating.each do |num|
+        avg.push(num.to_i)
+      end
+      print avg
+      new_avg = avg.inject{ |sum, el| sum + el }.to_f / avg.size
+      puts new_avg
+
+
+      @restaurant.update(:rating => updated_rating, :avg_rating => new_avg)
+
+      if @restaurant.save
+        @restaurant.to_json
+      else
+        halt 500
+      end
       # update an existing restaurant
     end
 

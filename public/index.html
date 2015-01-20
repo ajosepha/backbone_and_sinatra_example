@@ -51,13 +51,24 @@
       	<%= restaurant.get('name') %>   	
       <% } else {%>
       	<input type="text" name="name"/>
-      <% } %>
+      <% }; %>
       
       <label><h3>Rating</h3></label>
-      <input type="text" name="rating"/>
+         <% if(restaurant) { %>
+        <%= restaurant.get('avg_rating') %> 
+        <p>New Rating</p>
+        <input type="text" name="rating"/>    
+      <% } else {%>
+        <input type="text" name="rating"/>
+      <% }; %>
+
+      <% if(restaurant) { %>
+        <input type="hidden" name="id" value="<%= restaurant.id %>" />
+       
+       <% }; %>
       
       <br/>
-      <button type = "submit" class="btn">Send</button>
+      <button type = "submit" class="btn"><%= restaurant? 'Add Review ': 'New Restaurant' %></button>
       
     </form>
   </script>
@@ -134,8 +145,8 @@
   		saveRestaurant: function(ev){
   			var restaurantDetails = $(ev.currentTarget).serializeObject();
   			console.log(restaurantDetails.rating);
-  			restaurantDetails.rating = new Array(restaurantDetails.rating)
-  			console.log(restaurantDetails);
+  			// restaurantDetails.rating = new Array(restaurantDetails.rating)
+  			// console.log(restaurantDetails);
   			var restaurant = new Restaurant();
   			restaurant.save(restaurantDetails, {
   				success: function(restaurant){
